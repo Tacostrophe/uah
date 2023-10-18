@@ -1,5 +1,4 @@
 const express = require('express');
-const { checkExact } = require('express-validator');
 
 const users = require('../controllers/user.controllers');
 const validate = require('../middlewares/validation');

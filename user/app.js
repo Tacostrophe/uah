@@ -12,10 +12,6 @@ dotenv.config();
 
 const app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 // syncing db
 db.sequelize.sync()
   .then(() => {
@@ -31,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// routers
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
@@ -43,10 +40,10 @@ app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
+  console.log('!!! were here !!!');
+  console.log(`${req.app.get('env')}`);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  res.status(err.status || 500).send('error');
 });
 
 module.exports = app;

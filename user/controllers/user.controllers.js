@@ -9,7 +9,7 @@ exports.create = asyncHandler(async (req, res) => {
     lastName: req.body.lastName,
   };
   const user = await db.users.create(userTemplate);
-  await createRecord('create', user);
+  await createRecord('create', user.id, user.createdAt);
   res.send(user);
 });
 
@@ -20,7 +20,7 @@ exports.update = asyncHandler(async (req, res) => {
     user[key] = value;
   });
   user.save();
-  await createRecord('update', user);
+  await createRecord('update', user.id, user.updatedAt);
   res.send(user);
 });
 

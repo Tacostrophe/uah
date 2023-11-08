@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
 
+const records = require('./record.model');
+
 dotenv.config();
 
 const sequelize = new Sequelize(
@@ -9,7 +11,7 @@ const sequelize = new Sequelize(
   process.env.PGPASSWORD ?? 'root',
   {
     host: process.env.HOST ?? 'localhost',
-    dialect: 'postggres',
+    dialect: 'postgres',
   },
 );
 
@@ -17,5 +19,6 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+db.records = records(sequelize, Sequelize);
 
 module.exports = db;
